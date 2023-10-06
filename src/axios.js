@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 const instance = axios.create
-    ({ baseURL: 'http://localhost:4000/api/guess' })
+    ({ baseURL: 'https://test-fastapi-backend.onrender.com' })
 
 const startGame = async () => {
     try {
-        const { data: { msg } } = await instance.post('./start')
+        const { data: msg } = await instance.get('./')
+        // const msg = await instance.get('./')
+            console.log(msg)
         return msg
     } catch (error) {
         throw new Error('Sever Error!')

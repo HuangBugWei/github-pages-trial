@@ -59,7 +59,7 @@ function App() {
     setCompu(oppon)
     setRockStatus(msg)
   }
-  
+
   const startMenu = (
     <div>
       {/* someFunctionToBackend; and setHasStarted */}
@@ -81,6 +81,14 @@ function App() {
         setCompu('')
         setRockStatus('')
       }}>Rock, Paper, Scissors!</button>
+      <button onClick={ async() => {
+        setHasStarted(true)
+        setWhichMode(false)
+        setHasWon(false)
+        setGamer('')
+        setCompu('')
+        setRockStatus('')
+      }}>test python backend!</button>
     </div>
   )
 
