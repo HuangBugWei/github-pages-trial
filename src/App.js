@@ -1,5 +1,5 @@
 import './App.css';
-
+import { ForceGraph3D } from 'react-force-graph';
 import { useState } from 'react';
 import { startGame, guess, restart, shoot } from './axios'
 
@@ -7,7 +7,8 @@ function App() {
   // top
   const [hasStarted, setHasStarted] = useState(false)
   const [hasWon, setHasWon] = useState(false)
-  const [whichMode, setWhichMode] = useState(true)
+  // const [whichMode, setWhichMode] = useState(true)
+  const [whichMode, setWhichMode] = useState(0)
   
   // Number guessing
   const [number, setNumber] = useState('')
@@ -65,7 +66,7 @@ function App() {
       {/* someFunctionToBackend; and setHasStarted */}
       <button onClick={ async() => {
         setHasStarted(true)
-        setWhichMode(true)
+        setWhichMode(0)
         setHasWon(false)
         let msg = await startGame()
         setStatus(msg)
@@ -75,7 +76,7 @@ function App() {
       }}>Number Guessing</button>
       <button onClick={ async() => {
         setHasStarted(true)
-        setWhichMode(false)
+        setWhichMode(1)
         setHasWon(false)
         setGamer('')
         setCompu('')
@@ -83,12 +84,12 @@ function App() {
       }}>Rock, Paper, Scissors!</button>
       <button onClick={ async() => {
         setHasStarted(true)
-        setWhichMode(false)
+        setWhichMode(2)
         setHasWon(false)
         setGamer('')
         setCompu('')
         setRockStatus('')
-      }}>test python backend!</button>
+      }}>test node demo</button>
     </div>
   )
 
@@ -131,9 +132,25 @@ function App() {
       </div>
     </div>  
   )
+  const N = 300;
+  const myData = {
+    nodes: [...Array(N).keys()].map(i => ({ id: i })),
+    links: [...Array(N).keys()]
+      .filter(id => id)
+      .map(id => ({
+        source: id,
+        target: Math.round(Math.random() * (id-1))
+      }))
+  };
+
+  const sampleNode = (
+    <ForceGraph3D graphData={myData}/>
+  )
   const gameMode = (
     <div>
-      {whichMode ? numberGuessing : rock}
+      {/* {whichMode ? numberGuessing : rock} */}
+      {whichMode === 0 ? numberGuessing 
+      : whichMode === 1 ? rock : sampleNode}
     </div>
   )
 
@@ -142,6 +159,7 @@ function App() {
       {hasWon ? winningMode : gameMode}
     </div>
   )
+  
 
   return (
     <div className='App'>
